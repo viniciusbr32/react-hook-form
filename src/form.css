@@ -1,0 +1,33 @@
+.flexdiv {
+	display: flex;
+	flex-direction: column;
+}
+
+.margin {
+	margin-top: 40px;
+}
+
+.input {
+	width: 250px;
+	height: 30px;
+	border-radius: 8px;
+	border: none;
+}
+
+.error {
+	color: red;
+	font-size: 12px;
+}
+
+button {
+	background-color: #007bff;
+	color: white;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: #0056b3;
+}
