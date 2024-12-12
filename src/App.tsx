@@ -1,11 +1,11 @@
-import "./App.css";
+import { Input } from "./components/input/input";
 import "./form.css";
 import { useForm } from "react-hook-form";
 
-interface dataType {
+interface dataProps {
 	name: string;
-	password: string;
 	email: string;
+	password: string;
 }
 
 function App() {
@@ -13,74 +13,61 @@ function App() {
 		register,
 		formState: { errors },
 		handleSubmit,
-	} = useForm<dataType>();
+	} = useForm<dataProps>();
 
-	console.log("render");
-
-	const onSubmit = (data: dataType) => {
+	const onSubmit = (data: dataProps) => {
 		return console.log(data);
 	};
 
 	return (
 		<>
-			<form onSubmit={handleSubmit(onSubmit)}>
-				<div className="flexdiv ">
-					<label htmlFor="name">Nome</label>
-					<input
-						type="text"
+			<div className="center">
+				<form onSubmit={handleSubmit(onSubmit)}>
+					<Input
+						label="nome"
 						id="name"
-						className="input"
+						placeholder="Digite seu nome"
+						type="text"
+						error={errors?.name?.message}
 						{...register("name", {
-							required: "o nome é obrigatorio",
-							minLength: {
-								value: 3,
-								message: "O nome deve ter pelo menos 3 caracteres",
-							},
-						})}
-					/>
-					{errors.name && <span className="error">{errors.name.message}</span>}
-				</div>
-				<div className="flexdiv margin">
-					<label htmlFor="password">Senha</label>
-					<input
-						type="password"
-						id="password"
-						className="input"
-						{...register("password", {
-							required: "A senha é obrigatoria",
+							required: "Campo obrigatorio",
 							minLength: {
 								value: 5,
-								message: "A senha deve ter pelo menos 5 Caracteres",
+								message: "O nome precisa ter no minimo 5 caracteres",
 							},
 						})}
 					/>
-					{errors.password && (
-						<p className="error">{errors.password.message}</p>
-					)}
-				</div>
 
-				<div className="flexdiv margin">
-					<label htmlFor="email">Email</label>
-					<input
-						type="text"
+					<Input
+						label="Senha"
+						id="password"
+						placeholder="Digite sua senha"
+						type="password"
+						error={errors?.password?.message}
+						{...register("password", {
+							required: "Campo obrigatorio",
+							minLength: { value: 5, message: "minimo 5 caracteres" },
+						})}
+					/>
+
+					<Input
+						label="email"
 						id="email"
-						className="input"
+						placeholder="Digite seu email"
+						type="text"
+						error={errors?.email?.message}
 						{...register("email", {
-							required: "o email é obrigatorio",
+							required: "Campo obrigatorio",
 							pattern: {
 								value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
 								message: "Digite um email válido",
 							},
 						})}
 					/>
-					{errors?.email?.type && (
-						<p className="error">{errors?.email?.message}</p>
-					)}
-				</div>
-				<button type="submit" className="margin">
-					Enviar
-				</button>
-			</form>
+
+					<button type="submit">Enviar</button>
+				</form>
+			</div>
 		</>
 	);
 }
